@@ -19,12 +19,25 @@ export class LikeService {
     );
   }
 
-  users(id: string): Observable<LikeUser[]> {
+  // users(id: string): Observable<LikeUser[]> {
 
-    return this.http.get<LikeUser[]>(
-      `/api/likes/${id}/likes`
-    );
-  }
+  //   return this.http.get<LikeUser[]>(
+  //     `/api/likes/${id}/likes`
+  //   );
+  // }
+
+  users(
+    id: string,
+    page: number = 0,
+    size: number = 10
+  ) {
+
+      return this.http.get<{
+        content: LikeUser[]
+      }>(
+        `/api/likes/${id}/likes?page=${page}&size=${size}`
+      );
+    }
 
   // count(id: string) {
   //   return this.http.get<any>(`/api/likes/${id}/likes/count`);

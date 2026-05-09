@@ -5,4 +5,5 @@ export interface LikeCountResponse {
 export interface LikeUser {
   id: string;
   username: string;
+  avatarUrl: string | null;
 }

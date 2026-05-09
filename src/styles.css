@@ -202,6 +202,8 @@ input, textarea {
   padding: 16px;
   border-radius: 10px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 1;
 }
 
 /* Hover effect */
@@ -322,4 +324,15 @@ input, textarea {
 .comment-section {
   padding: 20px;
   border-radius: 12px;
+}
+
+.mat-card {
+
+  overflow: visible !important;
+}
+
+.cdk-overlay-container,
+.cdk-overlay-pane {
+
+  z-index: 99999 !important;
 }

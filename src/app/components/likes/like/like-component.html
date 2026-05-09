@@ -1,1 +1,79 @@
-<p>like works!</p>
+<div class="like-wrapper">
+
+  <button
+    mat-button
+    class="like-button"
+    (click)="like()">
+
+    👍 Like
+
+  </button>
+
+  <!-- Like Count -->
+  <div
+    class="like-count-wrapper"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()">
+
+    <span class="like-count">
+      {{ count }}
+    </span>
+
+    <!-- Dropdown -->
+    <div
+      class="likes-dropdown"
+      *ngIf="showLikesDropdown">
+
+      <!-- Loading -->
+      <div
+        *ngIf="loadingLikes"
+        class="dropdown-loading">
+
+        Loading...
+
+      </div>
+
+      <!-- Empty -->
+      <div
+        *ngIf="
+          !loadingLikes &&
+          likedUsers.length === 0
+        "
+        class="dropdown-empty">
+
+        No likes yet
+
+      </div>
+
+      <!-- Users -->
+      <div
+        *ngFor="let user of likedUsers"
+        class="liked-user">
+
+        <!-- Avatar -->
+        <img
+          *ngIf="user.avatarUrl"
+          [src]="user.avatarUrl"
+          class="liked-avatar-image"
+          alt="avatar">
+
+        <!-- Initial avatar -->
+        <div
+          *ngIf="!user.avatarUrl"
+          class="liked-avatar">
+
+          {{ user.username[0] | uppercase }}
+
+        </div>
+
+        <span class="liked-username">
+          {{ user.username }}
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
