@@ -1,0 +1,52 @@
+/* Container */
+.draft-container {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+/* Header */
+.header {
+  margin-bottom: 20px;
+}
+
+/* Card */
+.draft-card {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Top section */
+.draft-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Updated text */
+.updated {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Preview */
+.content-preview {
+  margin: 16px 0;
+  color: #444;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Empty */
+.empty-card {
+  padding: 30px;
+  text-align: center;
+}

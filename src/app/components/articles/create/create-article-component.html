@@ -1,0 +1,45 @@
+<div class="create-container">
+
+  <mat-card class="create-card">
+
+    <h2 class="create-title">Create Article</h2>
+
+    <!-- Title -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="title">
+    </mat-form-field>
+
+    <!-- Content -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Content</mat-label>
+      <textarea
+        matInput
+        rows="8"
+        [(ngModel)]="content">
+      </textarea>
+    </mat-form-field>
+
+    <!-- Actions -->
+    <div class="create-actions">
+
+      <!-- Save Draft -->
+      <button mat-stroked-button color="primary" (click)="saveDraft()">
+        Save Draft
+      </button>
+
+      <!-- Publish -->
+      <button mat-raised-button color="primary" (click)="publish()">
+        Publish
+      </button>
+
+      <!-- Cancel -->
+      <button mat-button routerLink="/articles">
+        Cancel
+      </button>
+
+    </div>
+
+  </mat-card>
+
+</div>

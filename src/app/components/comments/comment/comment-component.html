@@ -1,0 +1,266 @@
+<h3>Comments</h3>
+
+<!-- Post Comment -->
+<mat-card
+  *ngIf="auth.isLoggedIn()"
+  class="comment-box">
+
+  <textarea
+    matInput
+    [(ngModel)]="commentText"
+    placeholder="Write a comment..."
+    (input)="handleMention($event, 'comment')">
+  </textarea>
+
+  <!-- Mention dropdown -->
+  <div
+    class="mention-dropdown"
+    *ngIf="showMentionDropdown && activeMentionType === 'comment'">
+
+    <div
+      class="mention-item"
+      *ngFor="let user of mentionUsers"
+      (click)="selectMention(user)">
+
+      {{ user.username }}
+
+    </div>
+  </div>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submit()">
+
+    Post
+
+  </button>
+</mat-card>
+
+<!-- Comments -->
+<div
+  *ngFor="let c of comments"
+  class="comment-item">
+
+  <div class="comment-header">
+
+    <div class="avatar">
+      {{ c.author.username.charAt(0) | uppercase }}
+    </div>
+
+    <div>
+
+      <strong>
+        {{ c.author.username }}
+      </strong>
+
+      <p class="content">
+        {{ c.content }}
+      </p>
+
+      <div class="actions">
+
+        <button
+          mat-button
+          (click)="setReply(c)">
+
+          Reply
+
+        </button>
+
+        <button
+          *ngIf="c.replies.length"
+          mat-button
+          (click)="toggleReplies(c.id)">
+
+          {{ isCollapsed(c.id)
+            ? 'Show replies'
+            : 'Hide replies' }}
+
+        </button>
+
+      </div>
+
+      <!-- Reply box -->
+      <div
+        *ngIf="replyingTo === c.id"
+        class="reply-box">
+
+        <textarea
+          matInput
+          [(ngModel)]="replyText"
+          (input)="handleMention($event, 'reply')">
+        </textarea>
+
+        <!-- Mention dropdown -->
+        <div
+          class="mention-dropdown"
+          *ngIf="showMentionDropdown && activeMentionType === 'reply'">
+
+          <div
+            class="mention-item"
+            *ngFor="let user of mentionUsers"
+            (click)="selectMention(user)">
+
+            {{ user.username }}
+
+          </div>
+        </div>
+
+        <div>
+
+          <button
+            mat-button
+            color="primary"
+            (click)="submitReply(c.id)">
+
+            Post
+
+          </button>
+
+          <button
+            mat-button
+            (click)="cancelReply()">
+
+            Cancel
+
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Replies -->
+      <div
+        *ngIf="c.replies.length && !isCollapsed(c.id)"
+        class="replies">
+
+        <ng-container
+          *ngTemplateOutlet="
+            recursiveTemplate;
+            context: { $implicit: c.replies }
+          ">
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Recursive -->
+<ng-template #recursiveTemplate let-replies>
+
+  <div
+    *ngFor="let r of replies"
+    class="comment-item reply">
+
+    <div class="comment-header">
+
+      <div class="avatar small">
+        {{ r.author.username.charAt(0) }}
+      </div>
+
+      <div>
+
+        <strong>
+          {{ r.author.username }}
+        </strong>
+
+        <p class="content">
+          {{ r.content }}
+        </p>
+
+        <div class="actions">
+
+          <button
+            mat-button
+            (click)="setReply(r)">
+
+            Reply
+
+          </button>
+
+          <button
+            *ngIf="r.replies.length"
+            mat-button
+            (click)="toggleReplies(r.id)">
+
+            {{ isCollapsed(r.id)
+              ? 'Show replies'
+              : 'Hide replies' }}
+
+          </button>
+
+        </div>
+
+        <!-- Reply box -->
+        <div
+          *ngIf="replyingTo === r.id"
+          class="reply-box">
+
+          <textarea
+            matInput
+            [(ngModel)]="replyText"
+            (input)="handleMention($event, 'reply')">
+          </textarea>
+
+          <!-- Mention dropdown -->
+          <div
+            class="mention-dropdown"
+            *ngIf="showMentionDropdown && activeMentionType === 'reply'">
+
+            <div
+              class="mention-item"
+              *ngFor="let user of mentionUsers"
+              (click)="selectMention(user)">
+
+              {{ user.username }}
+
+            </div>
+          </div>
+
+          <div>
+
+            <button
+              mat-button
+              color="primary"
+              (click)="submitReply(r.id)">
+
+              Post
+
+            </button>
+
+            <button
+              mat-button
+              (click)="cancelReply()">
+
+              Cancel
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- Nested Replies -->
+        <div
+          *ngIf="r.replies.length && !isCollapsed(r.id)"
+          class="replies">
+
+          <ng-container
+            *ngTemplateOutlet="
+              recursiveTemplate;
+              context: { $implicit: r.replies }
+            ">
+          </ng-container>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</ng-template>

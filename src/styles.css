@@ -1,0 +1,325 @@
+/* Reset */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f6fa;
+}
+
+/* Page container */
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+/* Navbar container */
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+nav a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons */
+button {
+  padding: 6px 12px;
+  border: none;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+/* Inputs */
+input, textarea {
+  padding: 8px;
+  margin: 5px 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Card */
+.card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Comments */
+.comment {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 5px;
+}
+
+.reply {
+  margin-left: 20px;
+  border-left: 2px solid #ddd;
+  padding-left: 10px;
+}
+
+/* Comment box */
+.comment-box {
+  margin-bottom: 15px;
+}
+
+/* Comment item */
+.comment-item {
+  margin-top: 15px;
+  display: flex;
+}
+
+/* Header layout */
+.comment-header {
+  display: flex;
+  gap: 10px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Avatar */
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #0a66c2;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.avatar.small {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+}
+
+/* Content */
+.content {
+  margin: 5px 0;
+}
+
+/* Actions */
+.actions {
+  font-size: 12px;
+  color: gray;
+}
+
+/* Replies */
+.replies {
+  margin-left: 40px;
+  border-left: 2px solid #eee;
+  padding-left: 10px;
+}
+
+/* Reply box */
+.reply-box {
+  margin-top: 5px;
+}
+
+/* Mention highlight */
+.mention {
+  color: #0a66c2;
+  font-weight: bold;
+}
+
+.custom-snackbar {
+  background: #323232;
+  color: #fff;
+  border-radius: 6px;
+  padding: 10px 16px;
+
+  /* ✅ Slide from right animation */
+  transform: translateX(100%);
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+/* Animation */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* FULL GREEN snackbar */
+.success-snackbar .mdc-snackbar__surface {
+  background-color: #2e7d32 !important;
+  color: #fff !important;
+}
+
+/* FULL RED snackbar */
+.error-snackbar .mdc-snackbar__surface {
+  background-color: #d32f2f !important;
+  color: #fff !important;
+}
+
+/* Optional: close button color */
+.success-snackbar .mat-mdc-snack-bar-action,
+.error-snackbar .mat-mdc-snack-bar-action {
+  color: #fff !important;
+}
+
+/* List spacing */
+.article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card styling */
+.article-card {
+  padding: 16px;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* Title link */
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #3f51b5;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
+/* Logo */
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Push right side */
+.spacer {
+  flex: 1;
+}
+
+/* Center container */
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+/* Card */
+.form-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  border-radius: 10px;
+}
+
+/* Full width inputs */
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Container */
+.create-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* Card */
+.create-card {
+  width: 100%;
+  max-width: 700px; /* wider than login */
+  padding: 24px;
+  border-radius: 12px;
+}
+
+/* Title */
+.create-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Buttons */
+.create-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Container */
+.detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.article-content {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Like */
+.like-section {
+  margin-top: 16px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+/* Comments */
+.comment-section {
+  padding: 20px;
+  border-radius: 12px;
+}

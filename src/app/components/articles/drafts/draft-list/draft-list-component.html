@@ -1,0 +1,62 @@
+<div class="draft-container">
+
+  <div class="header">
+    <h2>My Drafts</h2>
+  </div>
+
+  <div *ngIf="drafts.length; else emptyState">
+
+    <mat-card *ngFor="let d of drafts" class="draft-card">
+
+      <div class="draft-top">
+
+        <div>
+          <h3>{{ d.title }}</h3>
+
+          <p class="updated">
+            Updated:
+            {{ d.updatedAt | date:'medium' }}
+          </p>
+        </div>
+
+        <!-- <mat-chip color="warn">
+          Draft
+        </mat-chip> -->
+
+      </div>
+
+      <p class="content-preview">
+        {{ d.content }}
+      </p>
+
+      <div class="actions">
+
+        <button
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/drafts', d.id, 'edit']">
+          Edit
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="publish(d.id)">
+          Publish
+        </button>
+
+      </div>
+
+    </mat-card>
+
+  </div>
+
+  <ng-template #emptyState>
+
+    <mat-card class="empty-card">
+      <p>No drafts available</p>
+    </mat-card>
+
+  </ng-template>
+
+</div>

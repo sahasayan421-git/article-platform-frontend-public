@@ -1,0 +1,26 @@
+<div class="detail-container">
+
+  <!-- Article Card -->
+  <mat-card class="article-card">
+
+    <h2 class="article-title">{{ article.title }}</h2>
+
+    <p class="article-content">
+      {{ article.content }}
+    </p>
+
+    <!-- Like -->
+    <div class="like-section">
+      <app-like *ngIf="article.id" [articleId]="article.id"></app-like>
+    </div>
+
+  </mat-card>
+
+  <!-- Comments -->
+  <mat-card class="comment-section">
+
+    <app-comment *ngIf="article.id" [articleId]="article.id"></app-comment>
+
+  </mat-card>
+
+</div>

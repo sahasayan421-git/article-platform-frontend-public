@@ -1,0 +1,25 @@
+<mat-toolbar color="primary" class="navbar">
+
+  <!-- Left: Logo / App name -->
+  <!-- <span class="logo" routerLink="/articles">Articles</span> -->
+
+  <button mat-icon-button routerLink="/articles" matTooltip="Home">
+  <mat-icon>home</mat-icon>
+  </button>
+
+  <span class="spacer"></span>
+
+  <!-- Right: Auth buttons -->
+  <ng-container *ngIf="!auth.isLoggedIn(); else loggedIn">
+    <button mat-button routerLink="/login">Login</button>
+    <button mat-button routerLink="/register">Register</button>
+  </ng-container>
+
+  <ng-template #loggedIn>
+    <button mat-button routerLink="/drafts">My Drafts</button>
+    <button mat-button (click)="logout()">Logout</button>
+  </ng-template>
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>

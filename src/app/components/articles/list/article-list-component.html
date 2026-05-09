@@ -1,0 +1,24 @@
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Articles</h2>
+    <button mat-raised-button color="primary" routerLink="/articles/create">
+      + Create Article
+    </button>
+  </div>
+
+  <!-- Article List -->
+  <div class="article-list">
+
+    <mat-card *ngFor="let a of articles" class="article-card">
+
+      <a [routerLink]="['/articles', a.id]" class="title">
+        {{ a.title }}
+      </a>
+
+    </mat-card>
+
+  </div>
+
+</div>
