@@ -1,27 +1,43 @@
-import { ChangeDetectorRef, Component, OnInit  } from '@angular/core';
-import { ArticleService } from '../../../services/article-service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
+import { Observable } from 'rxjs';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+
+import { ArticleService } from '../../../services/article-service';
+
 import { Article } from '../../../models/article';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule],
-  templateUrl: './article-list-component.html'
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatCardModule,
+    MatButtonModule
+  ],
+  templateUrl: './article-list-component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ArticleListComponent implements OnInit{
+export class ArticleListComponent implements OnInit {
 
-  articles: Article[] = [];
+  articles$!: Observable<Article[]>;
 
-  constructor(private service: ArticleService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private service: ArticleService
+  ) {}
 
   ngOnInit(): void {
-    this.service.getAll().subscribe(res => {
-      console.log(res);
-      this.articles = res;
-      this.cdr.detectChanges();
-    });
+
+    this.articles$ =
+      this.service.getAll();
   }
 }
