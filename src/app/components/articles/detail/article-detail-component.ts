@@ -1,47 +1,65 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit
+} from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
-import { ArticleService } from '../../../services/article-service';
-import { CommentService } from '../../../services/comment-service';
-import { LikeService } from '../../../services/like-service';
 import { CommonModule } from '@angular/common';
+
+import {
+  forkJoin,
+  map,
+  Observable,
+  switchMap
+} from 'rxjs';
+
+import { ArticleService } from '../../../services/article-service';
+import { LikeService } from '../../../services/like-service';
+
 import { CommentComponent } from '../../comments/comment/comment-component';
 import { LikeComponent } from '../../likes/like/like-component';
+
 import { MatCardModule } from '@angular/material/card';
-import { Article } from '../../../models/article';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, CommentComponent, LikeComponent, MatCardModule],
+  imports: [
+    CommonModule,
+    CommentComponent,
+    LikeComponent,
+    MatCardModule
+  ],
   templateUrl: './article-detail-component.html',
-  styleUrl: './article-detail-component.css'
+  styleUrl: './article-detail-component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ArticleDetailComponent {
+export class ArticleDetailComponent implements OnInit {
 
-  //article: any;
-  article!: Article;
-  comments: any[] = [];
-  likes: any;
+  detail$!: Observable<any>;
 
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private commentService: CommentService,
-    private likeService: LikeService,
-    private cdr: ChangeDetectorRef
+    private likeService: LikeService
   ) {}
 
-  ngOnInit() {
-    const id = this.route.snapshot.params['id'];
+  ngOnInit(): void {
 
-    this.articleService.getById(id).subscribe(res => {
-      this.article = res;
-      this.cdr.detectChanges();
-    });
+    this.detail$ = this.route.paramMap.pipe(
 
-  
-    this.likeService.count(id).subscribe(res => {
-      this.likes = res;
-      this.cdr.detectChanges();
-    });
+      map(params => params.get('id')!),
+
+      switchMap(id =>
+
+        forkJoin({
+
+          article: this.articleService.getById(id),
+
+          likes: this.likeService.count(id)
+
+        })
+      )
+    );
   }
 }

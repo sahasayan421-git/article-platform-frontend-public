@@ -1,26 +1,55 @@
-<div class="detail-container">
+<ng-container *ngIf="detail$ | async as data">
 
-  <!-- Article Card -->
-  <mat-card class="article-card">
+  <div class="detail-container">
 
-    <h2 class="article-title">{{ article.title }}</h2>
+    <!-- Article Card -->
+    <mat-card class="article-card">
 
-    <p class="article-content">
-      {{ article.content }}
-    </p>
+      <h2 class="article-title">
+        {{ data.article.title }}
+      </h2>
 
-    <!-- Like -->
-    <div class="like-section">
-      <app-like *ngIf="article.id" [articleId]="article.id"></app-like>
-    </div>
+      <p class="article-content">
+        {{ data.article.content }}
+      </p>
 
-  </mat-card>
+      <!-- Like Count -->
+      <!-- <p class="like-count">
+        Total Likes: {{ data.likes.likesCount }}
+      </p> -->
 
-  <!-- Comments -->
-  <mat-card class="comment-section">
+      <!-- Like Component -->
+      <div class="like-section">
 
-    <app-comment *ngIf="article.id" [articleId]="article.id"></app-comment>
+        <app-like
+          [articleId]="data.article.id">
+        </app-like>
 
-  </mat-card>
+      </div>
 
-</div>
+    </mat-card>
+
+    <!-- Lazy Comments -->
+    @defer (on idle) {
+
+      <mat-card class="comment-section">
+
+        <app-comment
+          [articleId]="data.article.id">
+        </app-comment>
+
+      </mat-card>
+
+    } @placeholder {
+
+      <mat-card class="comment-section">
+
+        <p>Loading comments...</p>
+
+      </mat-card>
+
+    }
+
+  </div>
+
+</ng-container>

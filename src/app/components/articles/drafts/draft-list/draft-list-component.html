@@ -4,57 +4,73 @@
     <h2>My Drafts</h2>
   </div>
 
-  <div *ngIf="drafts.length; else emptyState">
+  <ng-container *ngIf="drafts$ | async as res; else loading">
 
-    <mat-card *ngFor="let d of drafts" class="draft-card">
+    <ng-container *ngIf="(res?.content?.length ?? 0) > 0; else emptyState">
 
-      <div class="draft-top">
+      <mat-card
+        *ngFor="let d of res.content"
+        class="draft-card">
 
-        <div>
-          <h3>{{ d.title }}</h3>
+        <div class="draft-top">
 
-          <p class="updated">
-            Updated:
-            {{ d.updatedAt | date:'medium' }}
-          </p>
+          <div>
+
+            <h3>{{ d.title }}</h3>
+
+            <p class="updated">
+              Updated:
+              {{ d.updatedAt | date:'medium' }}
+            </p>
+
+          </div>
+
         </div>
 
-        <!-- <mat-chip color="warn">
-          Draft
-        </mat-chip> -->
+        <p class="content-preview">
+          {{ d.content }}
+        </p>
 
-      </div>
+        <div class="actions">
 
-      <p class="content-preview">
-        {{ d.content }}
-      </p>
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="['/drafts', d.id, 'edit']">
 
-      <div class="actions">
+            Edit
 
-        <button
-          mat-raised-button
-          color="primary"
-          [routerLink]="['/drafts', d.id, 'edit']">
-          Edit
-        </button>
+          </button>
 
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="publish(d.id)">
-          Publish
-        </button>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="publish(d.id)">
 
-      </div>
+            Publish
 
-    </mat-card>
+          </button>
 
-  </div>
+        </div>
+
+      </mat-card>
+
+    </ng-container>
+
+  </ng-container>
+
+  <ng-template #loading>
+
+    <p>Loading drafts...</p>
+
+  </ng-template>
 
   <ng-template #emptyState>
 
     <mat-card class="empty-card">
+
       <p>No drafts available</p>
+
     </mat-card>
 
   </ng-template>
